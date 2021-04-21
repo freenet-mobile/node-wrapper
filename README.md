@@ -9,7 +9,7 @@ Freenet Mobile App's core component.
 
 dependencies {
     // Freenet dependencies
-    implementation 'org.freenetproject.mobile:mobile-wrapper:0.2'
+    implementation 'org.freenetproject.mobile:node-wrapper:0.2'
 }
 ```
 
