@@ -6,6 +6,9 @@ Freenet Mobile App's core component.
 
 ```
 // build.gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 
 dependencies {
     // Freenet dependencies
