@@ -48,6 +48,8 @@ repositories {
 
 dependencies {
     implementation 'org.freenetproject:fred:build+'
+    implementation 'com.github.Bombe:jFCPlib:v0.1.6'
+    implementation 'co.trikita:log:1.1.5'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
