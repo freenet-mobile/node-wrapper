@@ -9,25 +9,51 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'org.freenetproject.mobile'
+version = '0.1'
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set("sources")
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+     archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+
+publishing {
+      publications {
+          mavenAar(MavenPublication) {
+                from components.java
+                afterEvaluate {
+                    artifact javadocJar
+                    artifact sourcesJar
+                }
+          }
+     }
+}
+
+task jar (type: Jar, overwrite: true) {
+    archivesBaseName = "node-wrapper"
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven { url 'https://mvn.freenetproject.org' }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
+    implementation 'org.freenetproject:fred:build+'
+
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
 
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:30.0-jre'
 }
 
 tasks.named('test') {
