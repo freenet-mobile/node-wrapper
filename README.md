@@ -52,6 +52,8 @@ Notes:
 ### Starting a node
 
 ```java
+import org.freenetproject.mobile.Runner;
+
 /**
  * Starts the node through NodeStarter unless it's already started.
  *
@@ -60,14 +62,7 @@ Notes:
  *          -2 if the node is already running
  *          0 if the node could be started
  */
- try {
-  ret = runner.start(new String[]{Installer.getInstance().getFreenetIniPath()});
-  if (ret == 0) {
-      status.postValue(Status.STARTED);
-  } else if (ret == -1) {
-      // Already running
-      status.postValue(Status.STARTED);
-  } else {
-      status.postValue(Status.ERROR);
-  }
+ Runner runner = Runner.getInstance();
+ String[] args = { Installer.getInstance().getFreenetIniPath() };
+ int ret = runner.start(args);
   ```
