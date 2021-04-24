@@ -8,12 +8,31 @@ Freenet Mobile App's core component.
 // build.gradle
 repositories {
     maven { url 'https://jitpack.io' }
+    maven { url 'https://mvn.freenetproject.org' }
 }
 
 dependencies {
-    // Freenet dependencies
-    implementation 'org.freenetproject.mobile:node-wrapper:0.3'
+    implementation 'com.github.freenet-mobile:node-wrapper:0.5'
 }
+```
+
+Android:
+
+```
+// build.gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://mvn.freenetproject.org' }
+}
+
+    // Freenet dependencies
+    implementation ('com.github.freenet-mobile:node-wrapper:0.5') {
+        exclude group: 'org.freenetproject', module: 'freenet-ext'
+        exclude group: 'net.java.dev.jna', module: 'jna'
+        exclude group: 'net.java.dev.jna', module: 'jna-platform'
+    }
+    implementation 'net.java.dev.jna:jna:4.5.2@aar'
+    // End Freenet dependencies
 ```
 
 ## Usage
