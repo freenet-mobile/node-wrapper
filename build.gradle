@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.freenetproject.mobile'
-version = '0.5'
+version = '0.6'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -43,17 +43,19 @@ dependencies {
     api 'org.bouncycastle:bcpkix-jdk15on:1.59'
     api "org.bouncycastle:bcprov-jdk15on:1.59"
 
+    // Extracted from freenet-ext
     api "tanukisoft:wrapper:3.2.3"
     api "org.apache.commons:commons-compress:1.4.1"
     api "org.b1.pack:lzma-sdk-4j:9.22.0"
 
-    api 'com.github.Bombe:jFCPlib:v0.1.6'
-
+    // Extracted from freenet-ext, adopted into freenet-mobile group
     api 'com.github.freenet-mobile:mantissa:0.0.3'
     api "com.github.freenet-mobile:lzmajio:0.95.4"
     api 'com.github.freenet-mobile:onion-common:0.0.3'
     api 'com.github.freenet-mobile:onion-fec:0.0.4'
     api 'com.github.freenet-mobile:freenet-ext:0.60.3'
+
+    implementation 'com.github.Bombe:jFCPlib:v0.1.6'
     // End Freenet dependencies
 
     // Android compatible logging
