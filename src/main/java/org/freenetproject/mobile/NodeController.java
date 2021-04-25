@@ -40,10 +40,7 @@ public interface NodeController {
      */
     String getConfig(String key, String defaultValue);
 
-    /**
-     * @param args Arguments to pass to the node
-     */
-    void start(String[] args);
+    void start();
 
     /**
      * @throws IOException Fails to persist configuration.
@@ -59,4 +56,9 @@ public interface NodeController {
      * @throws IOException Fails to communicate with FCP.
      */
     void resume() throws IOException;
+
+    /**
+     * @return Whether the node is up or not.
+     */
+    boolean isRunning();
 }

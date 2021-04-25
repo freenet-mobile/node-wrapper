@@ -49,11 +49,12 @@ class Config {
      * @param path Path where the node is located.
      */
     public void loadOrDefault(Path path) throws IOException {
-        Path config = Path.of(path.toString(), properties);
+        Path config = Paths.get(path.toString(), properties);
 
         if (Files.exists(config)) {
             InputStream is = new FileInputStream(config.toFile());
-            this.config = new Properties(is.read());
+            this.config = new Properties();
+            this.config.load(is);
             return;
         }
 
@@ -65,7 +66,7 @@ class Config {
      * Stores the current configuration to filesystem.
      */
     public void persist() throws IOException {
-        File dest = Path.of(this.config.getProperty("node.install.cfgDir"), properties).toFile();
+        File dest = Paths.get(this.config.getProperty("node.install.cfgDir"), properties).toFile();
         FileWriter writer = new FileWriter(dest);
         this.config.store(writer, dest.toString());
     }
@@ -80,10 +81,11 @@ class Config {
         InputStream defaultConfig = getClass()
             .getClassLoader()
             .getResourceAsStream(
-                Path.of("defaults", properties).toString()
+                Paths.get("defaults", properties).toString()
             );
 
-        Properties config = new Properties(defaultConfig.read());
+        Properties config = new Properties();
+        config.load(defaultConfig);
         String dir = path.toString();
         config.setProperty("node.install.cfgDir",  dir);
         config.setProperty("node.install.userDir", dir);

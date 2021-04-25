@@ -17,7 +17,7 @@ class NodeControllerImplTest {
     @Test
     public void installToPath(@TempDir Path path) throws IOException {
         NodeController nc = new NodeControllerImpl(path);
-        Files.exists(Path.of(path.toString(), "defaults/freenet.ini"));
+        Files.exists(Paths.get(path.toString(), "defaults/freenet.ini"));
     }
 
     @Test
@@ -47,7 +47,7 @@ class NodeControllerImplTest {
 
         nc.setConfig("seednodes.fref", seednodes);
 
-        Path destPath = Path.of(path.toString(), "seednodes.fref");
+        Path destPath = Paths.get(path.toString(), "seednodes.fref");
         assertTrue(Files.exists(destPath));
 
         assertEquals(content, Files.readAllLines(destPath));

@@ -1,9 +1,11 @@
 package org.freenetproject.mobile;
 
 import freenet.node.*;
+import org.bouncycastle.jce.provider.*;
 
 import java.io.*;
 import java.nio.file.*;
+import java.security.*;
 
 /**
  * Controls fred node (create and modify configuration, start/stop/pause node).
@@ -58,7 +60,7 @@ public class NodeControllerImpl implements NodeController {
      */
     public void setConfig(String filename, File file) throws IOException {
         String nodeDir = config.get("node.install.cfgDir");
-        Files.copy(file.toPath(), Path.of(nodeDir, filename));
+        Files.copy(file.toPath(), Paths.get(nodeDir, filename));
     }
 
     /**
@@ -84,13 +86,20 @@ public class NodeControllerImpl implements NodeController {
         return config.get(key, defaultValue);
     }
 
-    /**
-     * @param args Arguments to pass to the node
-     */
-    public void start(String[] args) {
+    public void start() {
         if (isRunning()) {
             return;
         }
+
+        Security.removeProvider("BC");
+        Security.insertProviderAt(new BouncyCastleProvider(), 1);
+
+        String[] args = {
+            Paths.get(
+                this.config.get("node.install.cfgDir"),
+                "freenet.ini"
+            ).toString()
+        };
 
         NodeStarter.start_osgi(args);
     }

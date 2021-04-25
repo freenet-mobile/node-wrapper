@@ -3,6 +3,12 @@ plugins {
     id 'maven-publish'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 group = 'org.freenetproject.mobile'
 version = '1.0'
 
