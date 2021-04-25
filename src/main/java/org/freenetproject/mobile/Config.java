@@ -77,7 +77,11 @@ class Config {
      * @return Configured node.
      */
     private Properties getDefaultConfig(Path path) throws IOException {
-        InputStream defaultConfig = getClass().getClassLoader().getResourceAsStream(properties);
+        InputStream defaultConfig = getClass()
+            .getClassLoader()
+            .getResourceAsStream(
+                Path.of("defaults", properties).toString()
+            );
 
         Properties config = new Properties(defaultConfig.read());
         String dir = path.toString();

@@ -1,44 +1,23 @@
 package org.freenetproject.mobile;
 
 import java.io.*;
-import java.nio.file.*;
 
-/**
- * Controls fred node (create and modify configuration, start/stop/pause node).
- */
-public class NodeController {
-    private final Config config = new Config();
-
+public interface NodeController {
     /**
-     * Loads node configuration or creates one from default
-     * values under the given path.
-     *
-     * @param path Path to fred installation directory
-     */
-    public NodeController(Path path) throws IOException {
-        config.loadOrDefault(path);
-    }
-
-
-    /**
-     * Stores the given value under key.
+     * Sends a ModifyConfiguration messages through FCP, if accepted it stores the given value under key.
      *
      * @param key Configuration name.
      * @param value Related value.
      */
-    public void setConfig(String key, String value) {
-        config.set(key, value);
-    }
+    void setConfig(String key, String value) throws IOException;
 
     /**
-     * Copy file into the node directory as "filename"
+     * Copy file into the node directory as "filename".
+     *
      * @param filename File name to save as.
      * @param file Actual file to copy.
      */
-    public void setConfig(String filename, File file) throws IOException {
-        String nodeDir = config.get("node.install.cfgDir");
-        Files.copy(file.toPath(), Path.of(nodeDir, filename));
-    }
+    void setConfig(String filename, File file) throws IOException;
 
     /**
      * Returns the value of the configuration key, defaults to ""
@@ -47,9 +26,7 @@ public class NodeController {
      * @param key Configuration name.
      * @return Related value.
      */
-    public String getConfig(String key) {
-        return getConfig(key, "");
-    }
+    String getConfig(String key);
 
     /**
      * Returns the value of the configuration key, defaults to defaultValue
@@ -59,16 +36,13 @@ public class NodeController {
      * @param defaultValue Default value to use.
      * @return Related value.
      */
-    public String getConfig(String key, String defaultValue) {
-        return config.get(key, defaultValue);
-    }
+    String getConfig(String key, String defaultValue);
 
-    public void start() {
-    }
-
-    public void stop() {
-    }
-
-    public void pause() {
-    }
+    /**
+     * @param args Arguments to pass to the node
+     */
+    void start(String[] args);
+    void shutdown() throws IOException;
+    void pause() throws IOException;
+    void resume() throws IOException;
 }
