@@ -8,6 +8,7 @@ public interface NodeController {
      *
      * @param key Configuration name.
      * @param value Related value.
+     * @throws IOException Fails to write config.
      */
     void setConfig(String key, String value) throws IOException;
 
@@ -16,6 +17,7 @@ public interface NodeController {
      *
      * @param filename File name to save as.
      * @param file Actual file to copy.
+     * @throws IOException Fails to write config.
      */
     void setConfig(String filename, File file) throws IOException;
 
@@ -42,7 +44,19 @@ public interface NodeController {
      * @param args Arguments to pass to the node
      */
     void start(String[] args);
+
+    /**
+     * @throws IOException Fails to persist configuration.
+     */
     void shutdown() throws IOException;
+
+    /**
+     * @throws IOException Fails to communicate with FCP.
+     */
     void pause() throws IOException;
+
+    /**
+     * @throws IOException Fails to communicate with FCP.
+     */
     void resume() throws IOException;
 }

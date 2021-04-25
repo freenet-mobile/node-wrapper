@@ -19,6 +19,7 @@ public class NodeControllerImpl implements NodeController {
      * @param path Path to fred installation directory
      * @param config Configuration wrapper
      * @param connector FCP connection wrapper
+     * @throws IOException Fails to open configuration.
      */
     public NodeControllerImpl(Path path, Config config, Connector connector) throws IOException {
         this.config = config;
@@ -31,6 +32,7 @@ public class NodeControllerImpl implements NodeController {
      * values under the given path.
      *
      * @param path Path to fred installation directory
+     * @throws IOException Fails to open configuration.
      */
     public NodeControllerImpl(Path path) throws IOException {
         this(path, new Config(), new Connector());
@@ -41,6 +43,7 @@ public class NodeControllerImpl implements NodeController {
      *
      * @param key Configuration name.
      * @param value Related value.
+     * @throws IOException Fails to set configuration.
      */
     public void setConfig(String key, String value) throws IOException {
         connector.modifyConfiguration(key, value);
