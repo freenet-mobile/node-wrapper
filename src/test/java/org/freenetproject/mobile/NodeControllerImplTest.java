@@ -52,4 +52,20 @@ class NodeControllerImplTest {
 
         assertEquals(content, Files.readAllLines(destPath));
     }
+
+    @Test
+    public void setConfigEscaping(@TempDir Path path) throws IOException {
+        Config config = new Config();
+        config.set("node.install.cfgDir", path.toString());
+        config.set("node.install.testDir", "/path/to/test:/another/path/to/test");
+        config.persist();
+
+        List<String> expected = new ArrayList<>();
+        expected.add("node.install.cfgDir=" + path);
+        expected.add("node.install.testDir=/path/to/test:/another/path/to/test");
+        expected.add("End");
+
+        assertEquals(expected, Files.readAllLines(Paths.get(path.toString(), "freenet.ini")));
+    }
+
 }

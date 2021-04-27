@@ -9,7 +9,7 @@ import java.util.*;
  */
 class Config {
     private final String properties = "freenet.ini";
-    private Properties config;
+    private Properties config = new Properties();
 
     /**
      * Set a given value under key.
@@ -64,11 +64,23 @@ class Config {
 
     /**
      * Stores the current configuration to filesystem.
+     *
+     * This method saves the configuration options without using the Properties#store method.
+     * Thus avoiding the escaping of : (used for IPv6 for example) and other especial characters
+     * that freenet configuration contains.
      */
     public void persist() throws IOException {
         File dest = Paths.get(this.config.getProperty("node.install.cfgDir"), properties).toFile();
         FileWriter writer = new FileWriter(dest);
-        this.config.store(writer, dest.toString());
+        this.config.forEach((k, v) -> {
+            try {
+                writer.write(String.format("%s=%s%n", k, v));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        writer.write(String.format("%s%n", "End"));
+        writer.close();
     }
 
     /**
