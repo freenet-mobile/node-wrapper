@@ -65,7 +65,13 @@ class NodeControllerImplTest {
         expected.add("node.install.testDir=/path/to/test:/another/path/to/test");
         expected.add("End");
 
-        assertEquals(expected, Files.readAllLines(Paths.get(path.toString(), "freenet.ini")));
+        Path file = Paths.get(path.toString(), "freenet.ini");
+        assertEquals(expected, Files.readAllLines(file));
+
+        Config read = new Config();
+        read.loadOrDefault(path);
+        assertEquals(path.toString(), read.get("node.install.cfgDir"));
+        assertEquals("/path/to/test:/another/path/to/test", read.get("node.install.testDir"));
     }
 
 }
