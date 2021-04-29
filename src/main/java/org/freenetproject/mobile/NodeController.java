@@ -22,6 +22,15 @@ public interface NodeController {
     void setConfig(String filename, File file) throws IOException;
 
     /**
+     * Copy file into the node directory as "filename".
+     *
+     * @param filename File name to save as.
+     * @param file Actual file to copy.
+     * @throws IOException Fails to write config.
+     */
+    void setConfig(String filename, InputStream file) throws IOException;
+
+    /**
      * Returns the value of the configuration key, defaults to ""
      * if the key is not present.
      *

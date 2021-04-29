@@ -64,6 +64,22 @@ public class NodeControllerImpl implements NodeController {
     }
 
     /**
+     * Copy file into the node directory as "filename".
+     *
+     * @param filename File name to save as.
+     * @param file Actual file to copy.
+     */
+    public void setConfig(String filename, InputStream file) throws IOException {
+        String nodeDir = config.get("node.install.cfgDir");
+        byte[] buffer = new byte[file.available()];
+        file.read(buffer);
+
+        File dest = new File(Paths.get(nodeDir, filename).toString());
+        OutputStream outStream = new FileOutputStream(dest);
+        outStream.write(buffer);
+    }
+
+    /**
      * Returns the value of the configuration key, defaults to ""
      * if the key is not present.
      *
