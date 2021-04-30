@@ -3,8 +3,14 @@ plugins {
     id 'maven-publish'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 group = 'org.freenetproject.mobile'
-version = '0.6'
+version = '1.0'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -58,11 +64,17 @@ dependencies {
     implementation 'com.github.Bombe:jFCPlib:v0.1.6'
     // End Freenet dependencies
 
+    // Random strings for ssl.sslKeyStorePass
+    implementation 'org.apache.commons:commons-lang3:3.9'
+
     // Android compatible logging
     implementation 'co.trikita:log:1.1.5'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.28.2'
 
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
