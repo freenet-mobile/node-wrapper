@@ -114,8 +114,8 @@ class Config {
         config.setProperty("node.masterKeyFile", dir + "/master.keys");
         config.setProperty("node.downloadsDir", dir + "/downloads");
 
-        config.setProperty("ssl.sslKeyStorePass", RandomStringUtils.randomAscii(64));
-        config.setProperty("ssl.sslKeyPass", RandomStringUtils.randomAscii(64));
+        config.setProperty("ssl.sslKeyStorePass", RandomStringUtils.randomAlphanumeric(64));
+        config.setProperty("ssl.sslKeyPass", RandomStringUtils.randomAlphanumeric(64));
 
         config.setProperty("logger.dirname", dir + "/logs");
 
