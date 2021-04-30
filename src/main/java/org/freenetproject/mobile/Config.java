@@ -1,5 +1,7 @@
 package org.freenetproject.mobile;
 
+import org.apache.commons.lang3.*;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -111,6 +113,9 @@ class Config {
 
         config.setProperty("node.masterKeyFile", dir + "/master.keys");
         config.setProperty("node.downloadsDir", dir + "/downloads");
+
+        config.setProperty("ssl.sslKeyStorePass", RandomStringUtils.randomAscii(64));
+        config.setProperty("ssl.sslKeyPass", RandomStringUtils.randomAscii(64));
 
         config.setProperty("logger.dirname", dir + "/logs");
 

@@ -28,6 +28,15 @@ class NodeControllerImplTest {
     }
 
     @Test
+    public void defaultValues(@TempDir Path path) throws IOException {
+        NodeControllerImpl nc = new NodeControllerImpl(path);
+        assertNotEquals("", nc.getConfig("ssl.sslKeyStorePass"));
+        assertEquals(64, nc.getConfig("ssl.sslKeyStorePass").length());
+        assertNotEquals("", nc.getConfig("ssl.sslKeyPass"));
+        assertEquals(64, nc.getConfig("ssl.sslKeyPass").length());
+    }
+
+    @Test
     public void setConfig(@TempDir Path path) throws IOException {
         Connector mockConnector = Mockito.mock(Connector.class);
         NodeControllerImpl nc = new NodeControllerImpl(path, new Config(), mockConnector);

@@ -64,6 +64,9 @@ dependencies {
     implementation 'com.github.Bombe:jFCPlib:v0.1.6'
     // End Freenet dependencies
 
+    // Random strings for ssl.sslKeyStorePass
+    implementation 'org.apache.commons:commons-lang3:3.9'
+
     // Android compatible logging
     implementation 'co.trikita:log:1.1.5'
 
