@@ -25,6 +25,8 @@ repositories {
     maven { url 'https://mvn.freenetproject.org' }
 }
 
+dependencies {
+    ...
     // Freenet dependencies
     implementation ('org.freenetproject.mobile:node-wrapper:1.0') {
         exclude group: 'org.freenetproject', module: 'freenet-ext'
@@ -33,6 +35,7 @@ repositories {
     }
     implementation 'net.java.dev.jna:jna:4.5.2@aar'
     // End Freenet dependencies
+}
 ```
 
 ## Usage
