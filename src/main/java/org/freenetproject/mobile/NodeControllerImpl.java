@@ -13,6 +13,7 @@ import java.security.*;
 public class NodeControllerImpl implements NodeController {
     private final Config config;
     private final Connector connector;
+    private final SimpleNodeStarter simpleNodeStarter = new SimpleNodeStarter();
 
     /**
      * Loads node configuration or creates one from default
@@ -103,21 +104,15 @@ public class NodeControllerImpl implements NodeController {
     }
 
     public void start() {
-        if (isRunning()) {
+        if (simpleNodeStarter.hasStarted()) {
             return;
         }
 
         Security.removeProvider("BC");
         Security.insertProviderAt(new BouncyCastleProvider(), 1);
 
-        String[] args = {
-            Paths.get(
-                this.config.get("node.install.cfgDir"),
-                "freenet.ini"
-            ).toString()
-        };
-
-        NodeStarter.start_osgi(args);
+        String cfgDir = this.config.get("node.install.cfgDir");
+        simpleNodeStarter.start(Paths.get(cfgDir, "freenet.ini").toString());
     }
 
     public boolean isRunning() {
@@ -133,7 +128,7 @@ public class NodeControllerImpl implements NodeController {
         if (!isRunning()) {
             return;
         }
-        NodeStarter.stop_osgi(0);
+        simpleNodeStarter.stop(0);
     }
 
     public void pause() throws IOException {
