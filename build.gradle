@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     // Freenet dependencies
-    api 'com.github.freenet:fred:build01490'
+    api 'com.github.freenet:fred:build01491'
     api 'org.bouncycastle:bcpkix-jdk15on:1.59'
     api "org.bouncycastle:bcprov-jdk15on:1.59"
 
