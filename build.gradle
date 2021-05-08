@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.freenetproject.mobile'
-version = '0.6'
+version = '0.7'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
