@@ -3,8 +3,14 @@ plugins {
     id 'maven-publish'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 group = 'org.freenetproject.mobile'
-version = '0.7'
+version = '0.8'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -33,13 +39,15 @@ task jar (type: Jar, overwrite: true) {
 
 repositories {
     mavenCentral()
-    maven { url 'https://mvn.freenetproject.org' }
     maven { url "https://jitpack.io" }
 }
 
 dependencies {
     // Freenet dependencies
-    api 'com.github.freenet:fred:build01491'
+    api('com.github.freenet:fred:build01491') {
+        exclude group: 'org.freenetproject', module: 'freenet-ext'
+    }
+
     api 'org.bouncycastle:bcpkix-jdk15on:1.59'
     api "org.bouncycastle:bcprov-jdk15on:1.59"
 
