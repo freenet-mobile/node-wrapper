@@ -1,5 +1,7 @@
 # Freenet Node wrapper
 
+[![Release](https://jitpack.io/v/freenet-mobile/node-wrapper.svg)](https://jitpack.io/#freenet-mobile/node-wrapper)
+
 Freenet Mobile App's core component.
 
 ## Install
