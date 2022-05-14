@@ -10,7 +10,7 @@ java {
 }
 
 group = 'org.freenetproject.mobile'
-version = '2.2'
+version = '2.3'
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -45,7 +45,7 @@ repositories {
 
 dependencies {
     // Freenet dependencies
-    api 'com.github.freenet:fred:build01492'
+    api 'com.github.freenet:fred:build01493'
     api 'org.bouncycastle:bcpkix-jdk15on:1.59'
     api "org.bouncycastle:bcprov-jdk15on:1.59"
 
